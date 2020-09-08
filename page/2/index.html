@@ -75,6 +75,320 @@
     
     
     
+    <article id="post-hexo搭建github博客教程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/09/08/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/"
+    >hexo搭建github博客教程</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/09/08/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/" class="article-date">
+  <time datetime="2020-09-08T14:48:02.000Z" itemprop="datePublished">2020-09-08</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="新建文档"><a href="#新建文档" class="headerlink" title="新建文档"></a>新建文档</h2><blockquote>
+<p>hexo n xx<br>新建名为xx.md 文件 然后就可以打开xx.md进行编辑</p>
+</blockquote>
+<blockquote>
+<p>现在来介绍常用的Hexo 命令  </p>
+</blockquote>
+<blockquote>
+<p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p>
+</blockquote>
+<blockquote>
+<p>命令简写<br>hexo n “我的博客” == hexo new “我的博客” #新建文章<br>hexo g == hexo generate #生成<br>hexo s == hexo server #启动服务预览<br>hexo d == hexo deploy #部署  </p>
+</blockquote>
+<blockquote>
+<p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令  </p>
+</blockquote>
+<blockquote>
+<p>刚刚的三个命令依次是新建一篇博客文章、生成网页、在本地预览的操作。  </p>
+</blockquote>
+<h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><blockquote>
+<p>hexo clean<br>hexo g<br>hexo d  </p>
+</blockquote>
+<p> hexo d 就是部署网站命令，d是deploy的缩写</p>
+<h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><ul>
+<li>域名管理页面设置域名解析  xx.github.io  </li>
+</ul>
+<p>192.30.252.153是GitHub的地址</p>
+<ul>
+<li><p>登录GitHub，进入之前创建的仓库，点击settings，设置Custom domain，输入你的域名</p>
+</li>
+<li><p>进入本地博客文件夹 ，进入blog/source目录下，创建一个记事本文件，输入你的域名，对，只要写进你自己的域名即可。如果带有www，那么以后访问的时候必须带有www完整的域名才可以访问，但如果不带有www，以后访问的时候带不带www都可以访问。所以建议，不要带有www,保存，命名为CNAME ，注意保存成所有文件而不是txt文件</p>
+</li>
+<li><p>进入blog目录中，按住shift键右击打开命令行，依次输入：</p>
+</li>
+</ul>
+<blockquote>
+<p>hexo clean<br>hexo g<br>hexo d</p>
+</blockquote>
+<p>此时就部署至github上，且绑定了域名，可以通过私有域名访问</p>
+<h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>上面只是在本地预览，接下来要做的就是就是推送网站，也就是发布网站，让我们的网站可以被更多的人访问。在设置之前，需要解释一个概念，在blog根目录里的_config.yml文件称为站点配置文件，如下图<br><img src="https://pic2.zhimg.com/80/v2-cb1fd5e5a2e73f513234e434724c7c55_1440w.jpg" alt="aa"></p>
+<p>进入根目录里的themes文件夹，里面也有个_config.yml文件，这个称为主题配置文件，如下图<br><img src="https://picb.zhimg.com/80/v2-4252029e5634bf91c7d58916ae2b8ac3_1440w.jpg" alt="ab"></p>
+<p>下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p>
+<p>deploy:<br>type: git<br>repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git<br>branch: master参考如下：</p>
+<p><img src="https://picb.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_1440w.jpg" alt="bb"></p>
+<p>保存站点配置文件。</p>
+<p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p>
+<p>npm install hexo-deployer-git –save</p>
+<p>这时，我们分别输入三条命令：</p>
+<p>hexo clean<br>hexo g<br>hexo d<br>其实第三条的 hexo d 就是部署网站命令，d是deploy的缩写。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="http://xxxx.github.io" target="_blank" rel="noopener">http://xxxx.github.io</a> (知乎排版可能会出现”http://“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p>
+<p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p>
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>如果你不喜欢Hexo默认的主题，可以更换不同的主题，主题传送门：Themes 我自己使用的是Next主题，可以在blog目录中的themes文件夹中查看你自己主题是什么。现在把默认主题更改成Next主题，在blog目录中（就是命令行的位置处于blog目录）打开命令行输入：</p>
+<p>git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next<br>这是将Next主题下载到blog目录的themes主题下的next文件夹中。打开站点的_config.yml配置文件，修改主题为next</p>
+<p><img src="https://pic3.zhimg.com/80/v2-b1997377e82408cb15b485c65ae00f70_1440w.jpg" alt="cc"></p>
+<p>打开主题的_config.yml配置文件，不是站点主题文件，找到Scheme Settings<br><img src="https://pic3.zhimg.com/80/v2-1ac152c4aabe4c10b762ee27552f1105_1440w.jpg" alt=""></p>
+<p>next主题有三个样式，我用的是Pisces，你们可以自己试试看，选择你自己喜欢的样式（只需要把行首的#去除，#是注释），选择好后，再次部署网站，hexo g、hexo d，查看效果。选择其他主题，按照上述过程即可实现。</p>
+<h2 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h2><p>我们开始正式发布上线博客文章，在命令行中输入：</p>
+<p>hexo n “博客名字”</p>
+<p>我们会发现在blog根目录下的source文件夹中的_post文件夹中多了一个 博客名字.md 文件，使用Markdown编辑器打开，就可以开始你的个人博客之旅了，Markdown常用的样式也就十来种，完全能够满足一般博文的样式要求，这是我的一篇博文内容示例：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-4f96cd03a88e68b8ae86c38bfb0808ac_1440w.jpg" alt=""></p>
+<p>通过带有预览样式的Markdown编辑器实时预览书写的博文样式，也可以通过命令 hexo s –debug 在本地浏览器的localhost:4000 预览博文效果。写好博文并且样式无误后，通过hexo g、hexo d 生成、部署网页。随后可以在浏览器中输入域名浏览。</p>
+<h2 id="寻找图床"><a href="#寻找图床" class="headerlink" title="寻找图床"></a>寻找图床</h2><p>图床，当博文中有图片时，若是少量图片，可以直接把图片存放在source文件夹中，但这显然不合理的，因为图片会占据大量的存储的空间，加载的时候相对缓慢 ，这时考虑把博文里的图片上传到某一网站，然后获得外部链接，使用Markdown语法，<img src="%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5" alt="图片信息"> 完成图片的插入，这种网站就被成为图床。常见的简易的图床网站有：贴图库图片外链 国内算比较好的图床我认为有两个：新浪微博和 七牛云 ，七牛云的使用方法可以参看其他文章。图床最重要的就是稳定速度快，所以在挑选图床的时候一定要仔细，下图是博文插入图片，使用图床外链的示例：</p>
+<p>个性化设置</p>
+<p>所谓的个性化设置就是根据个人需要添加不同的插件及功能。</p>
+<p>基本的有：</p>
+<p>在站点配置文件_config.yml修改基本的站点信息</p>
+<p><img src="https://pic3.zhimg.com/80/v2-78bc0e4e6498c9c3cb269b3254d8379f_1440w.jpg" alt=""></p>
+<p>依次是网站标题、副标题、网站描述、作者、网站头像外部链接、网站语言、时区等。</p>
+<p>在主题配置文件_config.yml修改基本的主题信息，如：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-451c5cb2fd6516650ad8ca608031bf0d_1440w.jpg" alt=""></p>
+<p>博文打赏的微信、支付宝二维码图片，这里我是直接把这两张放在根目录的source文件夹中，并没有使用图床外链。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-69bbc45e973eb6916e08187ed8b33a55_1440w.jpg" alt=""></p>
+<p>社交外链的设置，即在侧栏展示你的个人社交网站信息。</p>
+<p><img src="https://picb.zhimg.com/80/v2-5b3f6e02e0d3a0cdb685a4d2fd2718cb_1440w.jpg" alt=""></p>
+<p>博文分享的插件jiathis，值设置为true。在配置文件中有很多的个性化设置，可以自尝试更多的修改。</p>
+<h1 id="进阶个性化："><a href="#进阶个性化：" class="headerlink" title="进阶个性化："></a>进阶个性化：</h1><h2 id="添加网易云音乐"><a href="#添加网易云音乐" class="headerlink" title="添加网易云音乐"></a>添加网易云音乐</h2><p>打开网页版的网易云音乐，选择喜欢的音乐，点击生成外链播放器</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fcb7d44ccdca3760c98db0d13817f2b5_1440w.jpg" alt=""></p>
+<h2 id="复制外链的代码"><a href="#复制外链的代码" class="headerlink" title="复制外链的代码"></a>复制外链的代码</h2><p><img src="https://picb.zhimg.com/80/v2-16eec195312cde7b1d257fac6f3c8d0b_1440w.jpg" alt=""></p>
+<p>比如在侧栏插入这首歌的音乐播放器，修改 blog\themes\next\layout_macro的sidebar.swig文件，添加刚刚复制的外链代码</p>
+<p><img src="https://pic4.zhimg.com/80/v2-03db51002497b27e4d5888e0efd577c7_1440w.jpg" alt=""></p>
+<h2 id="重新生成、部署网页，效果如下"><a href="#重新生成、部署网页，效果如下" class="headerlink" title="重新生成、部署网页，效果如下"></a>重新生成、部署网页，效果如下</h2><p><img src="https://pic1.zhimg.com/80/v2-3d587bf919df92db38e2608f034e50f1_1440w.jpg" alt=""></p>
+<h2 id="设置背景"><a href="#设置背景" class="headerlink" title="设置背景"></a>设置背景</h2><p>把你挑选的背景图片命名为：background.jpg，放在blog\themes\next\source\images里，在blog\themes\next\source\css_custom文件的custom.styl首部添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">  background:url(&#x2F;images&#x2F;background.jpg);</span><br><span class="line">  background-attachment: fixed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>background-attachment: fixed;是固定背景图片。</p>
+<p>这是设置一张静态图片作为背景，其实Next主题自带有动态的背景效果，修改主题配置文件中的canvas_nest: false为canvas_nest: true即可。</p>
+<h2 id="增加侧栏菜单条目"><a href="#增加侧栏菜单条目" class="headerlink" title="增加侧栏菜单条目"></a>增加侧栏菜单条目</h2><p>默认的侧栏菜单条目有：首页、归档、标签、关于、搜索等。如果你想要增加其他的菜单条目，修改主题配置文件_config.yml里的Menu Settings中的menu和menu_icons两个地方</p>
+<p><img src="https://picb.zhimg.com/80/v2-666a22fedbba95d979eeb26e52fc29e2_1440w.jpg" alt=""></p>
+<p>其中menu里是配置菜单项对应的页面位置（如：/love），menu_icons对应菜单项的图标，这里的图标是来自于Font Awesome ，所以你需要在Font Awesome网站上找到你需要的icon，然后把该icon的名字写在menu_icons对应菜单名后面，注意冒号有一个英文输入状态的空格。设置好后，在命令行里输入：</p>
+<p>hexo new page “你所要增加的菜单项名称（要和你在menu中的填写要匹配）”<br>新建的页面在博客根目录下的source文件里，这时你就可以对新建的页面自定义设计。</p>
+<p>还有更多的进阶个性化设置，如SEO、评论系统、个人头像、博客分享、订阅功能、High功能、404网页设置等，可以参看：</p>
+<p>主题配置 - NexT 使用文档</p>
+<p>第三方服务集成 - NexT 使用文档</p>
+<p>内置标签 - NexT 使用文</p>
+<p>档进阶设定 - NexT 使用文档</p>
+<p>有很多人私信问我High功能特效如何设置，这里推荐一篇同是Next主题网站博主的文章：为Hexo Next主题添加哈林摇特效（五）</p>
+
+      
+      <!-- reward -->
+      <!--  -->
+    </div>
+    
+    
+      <!-- copyright -->
+      <!--  -->
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-java压缩zip" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/22/java%E5%8E%8B%E7%BC%A9zip/"
+    >java压缩zip</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/22/java%E5%8E%8B%E7%BC%A9zip/" class="article-date">
+  <time datetime="2020-04-22T15:31:25.000Z" itemprop="datePublished">2020-04-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="Java-zip压缩与解压缩"><a href="#Java-zip压缩与解压缩" class="headerlink" title="Java zip压缩与解压缩"></a>Java zip压缩与解压缩</h1><h2 id="Java-zip压缩（文件）"><a href="#Java-zip压缩（文件）" class="headerlink" title="Java zip压缩（文件）"></a>Java zip压缩（文件）</h2><h3 id="读取指定地址文件压缩并输出到指定位置"><a href="#读取指定地址文件压缩并输出到指定位置" class="headerlink" title="读取指定地址文件压缩并输出到指定位置"></a>读取指定地址文件压缩并输出到指定位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">String path &#x3D; &quot;&#x2F;Users&#x2F;majing&#x2F;download&#x2F;test.md&quot;;</span><br><span class="line">File file &#x3D; new File(path);</span><br><span class="line">FileInputStream fis &#x3D; new FileInputStream(file);</span><br><span class="line">Buffer</span><br><span class="line"></span><br><span class="line">ZipOutputStream zos &#x3D; new ZipOutputStream();</span><br><span class="line">byte[] bytes &#x3D; new byte[1000]</span><br><span class="line"></span><br><span class="line">while(true)&#123;</span><br><span class="line">    int len &#x3D; fis.read(bytes);</span><br><span class="line">    if(len &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取指定位置文件压缩并通过response流的方式实现浏览器下载"><a href="#读取指定位置文件压缩并通过response流的方式实现浏览器下载" class="headerlink" title="读取指定位置文件压缩并通过response流的方式实现浏览器下载"></a>读取指定位置文件压缩并通过response流的方式实现浏览器下载</h3><h3 id="读取InputStream压缩zip并写到指定位置"><a href="#读取InputStream压缩zip并写到指定位置" class="headerlink" title="读取InputStream压缩zip并写到指定位置"></a>读取InputStream压缩zip并写到指定位置</h3><h3 id="读取InputStream压缩zip并通过response流的方式实现浏览器下载"><a href="#读取InputStream压缩zip并通过response流的方式实现浏览器下载" class="headerlink" title="读取InputStream压缩zip并通过response流的方式实现浏览器下载"></a>读取InputStream压缩zip并通过response流的方式实现浏览器下载</h3><h2 id="Java-zip压缩（文件夹）"><a href="#Java-zip压缩（文件夹）" class="headerlink" title="Java zip压缩（文件夹）"></a>Java zip压缩（文件夹）</h2><h2 id="Java-zip解压缩"><a href="#Java-zip解压缩" class="headerlink" title="Java zip解压缩"></a>Java zip解压缩</h2>
+      
+      <!-- reward -->
+      <!--  -->
+    </div>
+    
+    
+      <!-- copyright -->
+      <!--  -->
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zip/" rel="tag">zip</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%81/" rel="tag">流</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-linux后台启动解释" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/21/linux%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8%E8%A7%A3%E9%87%8A/"
+    >linux后台启动解释.md</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/21/linux%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8%E8%A7%A3%E9%87%8A/" class="article-date">
+  <time datetime="2020-04-21T15:31:18.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="linux-后台启动进程"><a href="#linux-后台启动进程" class="headerlink" title="linux 后台启动进程"></a>linux 后台启动进程</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><blockquote>
+<p>nohup java -jar xxx.jar &gt;/dev/null 2&gt;&amp;1 &amp;  </p>
+</blockquote>
+<p><strong>命令解释</strong><br>使用&amp;后台运行程序：</p>
+<ul>
+<li><p>结果会输出到终端</p>
+</li>
+<li><p>使用Ctrl + C发送SIGINT信号，程序免疫</p>
+</li>
+<li><p>关闭session发送SIGHUP信号，程序关闭</p>
+</li>
+</ul>
+<p>使用nohup运行程序：</p>
+<ul>
+<li><p>结果默认会输出到nohup.out</p>
+</li>
+<li><p>使用Ctrl + C发送SIGINT信号，程序关闭</p>
+</li>
+<li><p>关闭session发送SIGHUP信号，程序免疫</p>
+</li>
+<li><p>nohup command &amp;<br>在后台运行command </p>
+</li>
+<li><p><code>&gt;/dev/null</code><br>这条命令的作用是将标准输出1重定向到/dev/null中。 /dev/null代表linux的空设备文件，所有往这个文件里面写入的内容都会丢失，俗称“黑洞”。那么执行了&gt;/dev/null之后，标准输出就会不再存在，没有任何地方能够找到输出的内容。</p>
+</li>
+<li><p><code>2&gt;&amp;1</code><br>这条命令用到了重定向绑定，采用&amp;可以将两个输出绑定在一起。这条命令的作用是错误输出将和标准输出同用一个文件描述符，说人话就是错误输出将会和标准输出输出到同一个地方。  </p>
+<p>  linux在执行shell命令之前，就会确定好所有的输入输出位置，并且从左到右依次执行重定向的命令，所以&gt;/dev/null 2&gt;&amp;1的作用就是让标准输出重定向到/dev/null中（丢弃标准输出），然后错误输出由于重用了标准输出的描述符，所以错误输出也被定向到了/dev/null中，错误输出同样也被丢弃了。执行了这条命令之后，该条shell命令将不会输出任何信息到控制台，也不会有任何信息输出到文件中。</p>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      <!--  -->
+    </div>
+    
+    
+      <!-- copyright -->
+      <!--  -->
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-hexo记录" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
