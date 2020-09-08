@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    java压缩zip |  Hexo
+    redis集群报错 |  Hexo
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -36,7 +36,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-java压缩zip" class="article article-type-post" itemscope
+  <article id="post-redis集群报错" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -44,7 +44,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  java压缩zip
+  redis集群报错
 </h1>
  
 
@@ -53,8 +53,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/22/java%E5%8E%8B%E7%BC%A9zip/" class="article-date">
-  <time datetime="2020-04-22T15:31:25.000Z" itemprop="datePublished">2020-04-22</time>
+      <a href="/2020/09/08/redis%E9%9B%86%E7%BE%A4%E6%8A%A5%E9%94%99/" class="article-date">
+  <time datetime="2020-09-08T15:22:01.000Z" itemprop="datePublished">2020-09-08</time>
 </a>
       
       
@@ -64,7 +64,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">151</span>
+            <span class="post-count">499</span>
         </span>
     </span>
 
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -98,9 +98,21 @@
       
 
       
-      <h1 id="Java-zip压缩与解压缩"><a href="#Java-zip压缩与解压缩" class="headerlink" title="Java zip压缩与解压缩"></a>Java zip压缩与解压缩</h1><h2 id="Java-zip压缩（文件）"><a href="#Java-zip压缩（文件）" class="headerlink" title="Java zip压缩（文件）"></a>Java zip压缩（文件）</h2><h3 id="读取指定地址文件压缩并输出到指定位置"><a href="#读取指定地址文件压缩并输出到指定位置" class="headerlink" title="读取指定地址文件压缩并输出到指定位置"></a>读取指定地址文件压缩并输出到指定位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">String path &#x3D; &quot;&#x2F;Users&#x2F;majing&#x2F;download&#x2F;test.md&quot;;</span><br><span class="line">File file &#x3D; new File(path);</span><br><span class="line">FileInputStream fis &#x3D; new FileInputStream(file);</span><br><span class="line">Buffer</span><br><span class="line"></span><br><span class="line">ZipOutputStream zos &#x3D; new ZipOutputStream();</span><br><span class="line">byte[] bytes &#x3D; new byte[1000]</span><br><span class="line"></span><br><span class="line">while(true)&#123;</span><br><span class="line">    int len &#x3D; fis.read(bytes);</span><br><span class="line">    if(len &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <h1 id="redis错误类型"><a href="#redis错误类型" class="headerlink" title="redis错误类型"></a>redis错误类型</h1><ul>
+<li><p>CLUSTER cluster is down</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">关键词：</span><br><span class="line"></span><br><span class="line">CLUSTER cluster is down</span><br><span class="line">[ERR] Not all 16384 slots are covered by nodes.</span><br><span class="line">一</span><br><span class="line">在使用redis在单一一台机子学习集群的时候，布置了6个节点。</span><br><span class="line">登录节点命令：</span><br><span class="line"></span><br><span class="line">.&#x2F;redis-cli -h *** -p 7001 -c</span><br><span class="line"></span><br><span class="line">连接成功，但是设置值的时候提示：CLUSTER cluster is down,这个时候显示集群挂了。</span><br><span class="line">集群出了问题，那么检测一下问题：</span><br><span class="line">.&#x2F;redis-trib.rb check 127.0.0.1:7001；</span><br><span class="line">注意：这个时候需要用到的是.&#x2F;redis-trib.rb，需要移动到该文件夹位置之下。IP地址打上自己的，端口选择其中一个即可，redis似乎会检测集群的其余节点。</span><br><span class="line">检测结果： [ERR] Not all 16384 slots are covered by nodes.</span><br><span class="line">结果说明：有节点出了问题。</span><br><span class="line">这里写图片描述</span><br><span class="line"></span><br><span class="line">修复</span><br><span class="line">修复命令：</span><br><span class="line">.&#x2F;redis-trib.rb fix 173.168.68.221:7001</span><br><span class="line"></span><br><span class="line">修复结束后，再次检测：</span><br><span class="line">.&#x2F;redis-trib.rb check 173.168.68.221:7001；</span><br><span class="line">发现还是出现错误： [ERR] Not all 16384 slots are covered by nodes.</span><br><span class="line"></span><br><span class="line">再次使用修复节点的命令后，结果正常了- -||</span><br><span class="line">这里写图片描述</span><br><span class="line"></span><br><span class="line">这个时候登录节点，发现可以正常使用集群了。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CLUSTERDOWN Hash slot not served</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">linux 命令操作redis中报了一个错</span><br><span class="line"></span><br><span class="line">(error) CLUSTERDOWN Hash slot not served ：没有分配槽</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">解决办法，可以修复一下。进入redis&#x2F;src目录，执行如下操作</span><br><span class="line"></span><br><span class="line">redis-cli --cluster fix 10.25.75.116:7004</span><br></pre></td></tr></table></figure>
 
-<h3 id="读取指定位置文件压缩并通过response流的方式实现浏览器下载"><a href="#读取指定位置文件压缩并通过response流的方式实现浏览器下载" class="headerlink" title="读取指定位置文件压缩并通过response流的方式实现浏览器下载"></a>读取指定位置文件压缩并通过response流的方式实现浏览器下载</h3><h3 id="读取InputStream压缩zip并写到指定位置"><a href="#读取InputStream压缩zip并写到指定位置" class="headerlink" title="读取InputStream压缩zip并写到指定位置"></a>读取InputStream压缩zip并写到指定位置</h3><h3 id="读取InputStream压缩zip并通过response流的方式实现浏览器下载"><a href="#读取InputStream压缩zip并通过response流的方式实现浏览器下载" class="headerlink" title="读取InputStream压缩zip并通过response流的方式实现浏览器下载"></a>读取InputStream压缩zip并通过response流的方式实现浏览器下载</h3><h2 id="Java-zip压缩（文件夹）"><a href="#Java-zip压缩（文件夹）" class="headerlink" title="Java zip压缩（文件夹）"></a>Java zip压缩（文件夹）</h2><h2 id="Java-zip解压缩"><a href="#Java-zip解压缩" class="headerlink" title="Java zip解压缩"></a>Java zip解压缩</h2>
+<ul>
+<li>LUSTERDOWN The cluster is down  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1.错误</span><br><span class="line">(error)CLUSTERDOWN The cluster is down</span><br><span class="line"></span><br><span class="line">2.问题表现</span><br><span class="line">    Java项目使用redis集群时报错,</span><br><span class="line"></span><br><span class="line">HTTP Status 500 - Could not get a resource from the pool</span><br><span class="line">    查看redis集群启动情况: ps -ef | grep &quot;redis&quot;,如图</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    在操作redis集群写入数据时报错:</span><br><span class="line"></span><br><span class="line">(error)CLUSTERDOWN The cluster is down</span><br><span class="line">3.解决办法</span><br><span class="line">    3-1进入redis安装目录</span><br><span class="line"></span><br><span class="line">cd &#x2F;opt&#x2F;redis-3.0.1&#x2F;src</span><br><span class="line">    3-2修复集群节点,如7000,需要修复全部集群节点</span><br><span class="line"></span><br><span class="line">.&#x2F;redis-trib.rb fix 127.0.0.1:7000</span><br><span class="line">     3-3测试</span><br><span class="line"></span><br><span class="line">redis-cli -c -p 7000</span><br><span class="line">set test ok</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
       
       <!-- reward -->
       <!-- 
@@ -168,15 +180,13 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/22/java%E5%8E%8B%E7%BC%A9zip/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/08/redis%E9%9B%86%E7%BE%A4%E6%8A%A5%E9%94%99/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zip/" rel="tag">zip</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%81/" rel="tag">流</a></li></ul>
-
 
     </footer>
 
@@ -186,19 +196,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/09/08/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/" class="article-nav-link">
+      <a href="/2020/09/08/redis%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            hexo搭建github博客教程
+            redis搭建集群
           
         </div>
       </a>
     
     
-      <a href="/2020/04/21/linux%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8%E8%A7%A3%E9%87%8A/" class="article-nav-link">
+      <a href="/2020/09/08/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">linux后台启动解释.md</div>
+        <div class="article-nav-title">hexo搭建github博客教程</div>
       </a>
     
   </nav>

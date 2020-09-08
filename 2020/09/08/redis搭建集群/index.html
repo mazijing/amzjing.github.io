@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    java压缩zip |  Hexo
+    redis搭建集群 |  Hexo
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -36,7 +36,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-java压缩zip" class="article article-type-post" itemscope
+  <article id="post-redis搭建集群" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -44,7 +44,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  java压缩zip
+  redis搭建集群
 </h1>
  
 
@@ -53,8 +53,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/22/java%E5%8E%8B%E7%BC%A9zip/" class="article-date">
-  <time datetime="2020-04-22T15:31:25.000Z" itemprop="datePublished">2020-04-22</time>
+      <a href="/2020/09/08/redis%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/" class="article-date">
+  <time datetime="2020-09-08T15:44:28.000Z" itemprop="datePublished">2020-09-08</time>
 </a>
       
       
@@ -64,7 +64,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">151</span>
+            <span class="post-count">2.2k</span>
         </span>
     </span>
 
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">8 min</span>
         </span>
     </span>
 </div>
@@ -98,9 +98,98 @@
       
 
       
-      <h1 id="Java-zip压缩与解压缩"><a href="#Java-zip压缩与解压缩" class="headerlink" title="Java zip压缩与解压缩"></a>Java zip压缩与解压缩</h1><h2 id="Java-zip压缩（文件）"><a href="#Java-zip压缩（文件）" class="headerlink" title="Java zip压缩（文件）"></a>Java zip压缩（文件）</h2><h3 id="读取指定地址文件压缩并输出到指定位置"><a href="#读取指定地址文件压缩并输出到指定位置" class="headerlink" title="读取指定地址文件压缩并输出到指定位置"></a>读取指定地址文件压缩并输出到指定位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">String path &#x3D; &quot;&#x2F;Users&#x2F;majing&#x2F;download&#x2F;test.md&quot;;</span><br><span class="line">File file &#x3D; new File(path);</span><br><span class="line">FileInputStream fis &#x3D; new FileInputStream(file);</span><br><span class="line">Buffer</span><br><span class="line"></span><br><span class="line">ZipOutputStream zos &#x3D; new ZipOutputStream();</span><br><span class="line">byte[] bytes &#x3D; new byte[1000]</span><br><span class="line"></span><br><span class="line">while(true)&#123;</span><br><span class="line">    int len &#x3D; fis.read(bytes);</span><br><span class="line">    if(len &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <h1 id="redis搭建集群"><a href="#redis搭建集群" class="headerlink" title="redis搭建集群"></a>redis搭建集群</h1><h2 id="Redis-集群简介"><a href="#Redis-集群简介" class="headerlink" title="Redis 集群简介"></a>Redis 集群简介</h2><p>Redis 是一个开源的 key-value 存储系统，由于出众的性能，大部分互联网企业都用来做服务器端缓存。Redis 在3.0版本前只支持单实例模式，虽然支持主从模式、哨兵模式部署来解决单点故障，但是现在互联网企业动辄大几百G的数据，可完全是没法满足业务的需求，所以，Redis 在 3.0 版本以后就推出了集群模式。</p>
+<p>Redis 集群采用了P2P的模式，完全去中心化。Redis 把所有的 Key 分成了 16384 个 slot，每个 Redis 实例负责其中一部分 slot 。集群中的所有信息（节点、端口、slot等），都通过节点之间定期的数据交换而更新。<br>Redis 客户端可以在任意一个 Redis 实例发出请求，如果所需数据不在该实例中，通过重定向命令引导客户端访问所需的实例。</p>
+<h2 id="随随便便搭建一个集群"><a href="#随随便便搭建一个集群" class="headerlink" title="随随便便搭建一个集群"></a>随随便便搭建一个集群</h2><p>安装部署任何一个应用其实都很简单，只要安装步骤一步一步来就行了。下面说一下 Redis 集群搭建规划，由于集群至少需要6个节点（3主3从模式），所以，没有这么多机器给我玩，我本地也起不了那么多虚拟机（电脑太烂），现在计划是在一台机器上模拟一个集群，当然，这和生产环境的集群搭建没本质区别。</p>
+<p>我现在就要在已经有安装了 Redis 的一个 CentOS 下开始进行集群搭建，如果你还不是很清楚 Linux 下如何安装 Redis ，可以去看这一篇文章《了解一下 Redis 并在 CentOS 下进行安装配置》。请注意，下面所有集群搭建环境都基于已安装好的 Redis 做的。</p>
+<ol>
+<li><p>创建文件夹<br>我们计划集群中 Redis 节点的端口号为 9001-9006 ，端口号即集群下各实例文件夹。数据存放在 端口号/data 文件夹中。    </p>
+<p><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170608233722965-555429215.png" alt="mkdir_9001-9006">   </p>
+<ul>
+<li>mkdir /usr/local/redis-cluster</li>
+<li>cd redis-cluster/</li>
+<li>mkdir -p 9001/data 9002/data 9003/data 9004/data 9005/data 9006/data  </li>
+</ul>
+</li>
+<li><p>复制执行脚本<br>在 /usr/local/redis-cluster 下创建 bin 文件夹，用来存放集群运行脚本，并把安装好的 Redis 的 src 路径下的运行脚本拷贝过来。看命令：</p>
+<ul>
+<li>mkdir redis-cluster/bin</li>
+<li>cd /usr/local/redis/src</li>
+<li>cp mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-server redis-trib.rb /usr/local/redis-cluster/bin</li>
+</ul>
+</li>
+<li><p>复制一个新 Redis 实例<br>我们现在从已安装好的 Redis 中复制一个新的实例到 9001 文件夹，并修改 redis.conf 配置。<br><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170608234342168-1828683256.png" alt="mv9001"></p>
+</li>
+</ol>
+<ul>
+<li>cp /usr/local/redis/* /usr/local/redis-cluster/9001<blockquote>
+<p>注意，修改 redis.conf 配置和单点唯一区别是下图部分，其余还是常规的这几项：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">port 9001（每个节点的端口号）</span><br><span class="line">daemonize yes</span><br><span class="line">bind 192.168.119.131（绑定当前机器 IP）</span><br><span class="line">dir &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9001&#x2F;data&#x2F;（数据文件存放位置）</span><br><span class="line">pidfile &#x2F;var&#x2F;run&#x2F;redis_9001.pid（pid 9001和port要对应）</span><br><span class="line">cluster-enabled yes（启动集群模式）</span><br><span class="line">cluster-config-file nodes9001.conf（9001和port要对应）</span><br><span class="line">cluster-node-timeout 15000</span><br><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+集群搭建配置重点就是取消下图中的这三个配置的注释：<br><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170608235351340-327384767.png" alt="cluster_conf"></li>
+</ul>
+<ol start="4">
+<li><p>再复制出五个新 Redis 实例<br>我们已经完成了一个节点了，其实接下来就是机械化的再完成另外五个节点，其实可以这么做：把 9001 实例 复制到另外五个文件夹中，唯一要修改的就是 redis.conf 中的所有和端口的相关的信息即可，其实就那么四个位置。开始操作，看图：</p>
+<p><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609000331840-1109501384.png" alt="cp9001-9006"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">\cp -rf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9001&#x2F;* &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9002</span><br><span class="line">\cp -rf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9001&#x2F;* &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9003</span><br><span class="line">\cp -rf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9001&#x2F;* &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9004</span><br><span class="line">\cp -rf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9001&#x2F;* &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9005</span><br><span class="line">\cp -rf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9001&#x2F;* &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;9006</span><br><span class="line">\cp -rf 命令是不使用别名来复制，因为 cp 其实是别名 cp -i，操作时会有交互式确认，比较烦人。</span><br></pre></td></tr></table></figure></li>
+<li><p>修改 9002-9006 的 redis.conf 文件<br>其实非常简单了，你通过搜索会发现其实只有四个点需要修改，我们全局替换下吧，进入相应的节点文件夹，做替换就好了。命令非常简单，看图：<br><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609000850293-694480679.png" alt="%s-9001-9002g"></p>
+</li>
+</ol>
+<blockquote>
+<p>vim redis.conf<br>   :%s/9001/9002g<br>回车后，就会有替换几个地方成功的提示，不放心可以手工检查下：</p>
+</blockquote>
+<p>%s-success</p>
+<p>其实我们也就是替换了下面这四行：</p>
+<blockquote>
+<p>port 9002<br>dir /usr/local/redis-cluster/9002/data/<br>cluster-config-file nodes-9002.conf<br>pidfile /var/run/redis_9002.pid</p>
+</blockquote>
+<p>到这里，我们已经把最基本的环境搞定了，接下来就是启动了。  </p>
+<h2 id="其实我们已经几乎搭建好了"><a href="#其实我们已经几乎搭建好了" class="headerlink" title="其实我们已经几乎搭建好了"></a>其实我们已经几乎搭建好了</h2><ol>
+<li>启动 9001-9006 六个节点<br>少废话，直接看图：<br><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609001617887-1150016667.png" alt=""></li>
+</ol>
+<p>/usr/local/bin/redis-server /usr/local/redis-cluster/9001/redis.conf<br>/usr/local/bin/redis-server /usr/local/redis-cluster/9002/redis.conf<br>/usr/local/bin/redis-server /usr/local/redis-cluster/9003/redis.conf<br>/usr/local/bin/redis-server /usr/local/redis-cluster/9004/redis.conf<br>/usr/local/bin/redis-server /usr/local/redis-cluster/9005/redis.conf<br>/usr/local/bin/redis-server /usr/local/redis-cluster/9006/redis.conf<br>可以检查一下是否启动成功：ps -el | grep redis<br>看的出来，六个节点已经全部启动成功了。</p>
+<ol start="2">
+<li>随便找一个节点测试试</li>
+</ol>
+<blockquote>
+<p>/usr/local/redis-cluster/bin/redis-cli -h 192.168.119.131 -p 9001</p>
+</blockquote>
+<blockquote>
+<p>set name mafly</p>
+</blockquote>
+<p><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609002010762-729079520.png" alt=""></p>
+<p>连接成功了，但好像报错了阿？？？<br>(error) CLUSTERDOWN Hash slot not served（不提供集群的散列槽），这是什么鬼？<br>这是因为虽然我们配置并启动了 Redis 集群服务，但是他们暂时还并不在一个集群中，互相直接发现不了，而且还没有可存储的位置，就是所谓的slot（槽）。</p>
+<ol start="3">
+<li>安装集群所需软件<br>由于 Redis 集群需要使用 ruby 命令，所以我们需要安装 ruby 和相关接口。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install ruby</span><br><span class="line">yum install rubygems</span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+<img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609002556950-2102990948.png" alt=""><h2 id="这才是真正的创建集群"><a href="#这才是真正的创建集群" class="headerlink" title="这才是真正的创建集群"></a>这才是真正的创建集群</h2>先不废话，直接敲命令：</li>
+</ol>
+<blockquote>
+<p>/usr/local/redis-cluster/bin/redis-trib.rb create –replicas 1 192.168.119.131:9001 192.168.119.131:9002 192.168.119.131:9003 192.168.119.131:9004 192.168.119.131:9005 192.168.119.131:9006</p>
+</blockquote>
+<p><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609002923075-940692900.png" alt=""></p>
+<p>简单解释一下这个命令：调用 ruby 命令来进行创建集群，–replicas 1 表示主从复制比例为 1:1，即一个主节点对应一个从节点；然后，默认给我们分配好了每个主节点和对应从节点服务，以及 solt 的大小，因为在 Redis 集群中有且仅有 16383 个 solt ，默认情况会给我们平均分配，当然你可以指定，后续的增减节点也可以重新分配。</p>
+<p>M: 10222dee93f6a1700ede9f5424fccd6be0b2fb73 为主节点Id</p>
+<p>S: 9ce697e49f47fec47b3dc290042f3cc141ce5aeb 192.168.119.131:9004 replicates 10222dee93f6a1700ede9f5424fccd6be0b2fb73 从节点下对应主节点Id</p>
+<p>目前来看，9001-9003 为主节点，9004-9006 为从节点，并向你确认是否同意这么配置。输入 yes 后，会开始集群创建。</p>
+<p><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609003837872-1480989199.png" alt="cluster_create_success"></p>
+<p>上图则代表集群搭建成功啦！！！</p>
+<h2 id="验证一下："><a href="#验证一下：" class="headerlink" title="验证一下："></a>验证一下：</h2><p>依然是通过客户端命令连接上，通过集群命令看一下状态和节点信息等。</p>
+<blockquote>
+<p>/usr/local/redis-cluster/bin/redis-cli -c -h 192.168.119.131 -p 9001  </p>
+</blockquote>
+<blockquote>
+<p>cluster info</p>
+</blockquote>
+<blockquote>
+<p>cluster nodes<br><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609004309122-927584496.png" alt="cluster_info"></p>
+</blockquote>
+<p>通过命令，可以详细的看出集群信息和各个节点状态，主从信息以及连接数、槽信息等。这么看到，我们已经真的把 Redis 集群搭建部署成功啦！</p>
+<p>设置一个 mafly：<br>你会发现，当我们 set name mafly 时，出现了 Redirected to slot 信息并自动连接到了9002节点。这也是集群的一个数据分配特性，这里不详细说了。</p>
+<p><img src="https://images2015.cnblogs.com/blog/539095/201706/539095-20170609004602356-940998597.png" alt="redirected_9002"></p>
+<h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><p>这一篇 Redis 集群部署搭建的文章真的是一步一步的走下来的，只要你安装我的步骤来，就保证你能成功搭建一个 Redis 集群玩玩，也可以这么说，除了步骤繁琐外，几乎不存在技术含量，估计能看完的人都感觉累（说真的，写这种文章真的很累人）。</p>
+<p>接下来可能就是动态扩容、增加节点和减少节点，重新分配槽大小等，当然，还有最重要的就是怎么和我们程序结合起来，以及如何更好的把 Redis 缓存集群发挥出应有的效果，这些才是最重要的。</p>
+<p>今晚上的台风并不是很厉害呀，还有好像好久没有不是在一天中睡觉与醒来了…</p>
 
-<h3 id="读取指定位置文件压缩并通过response流的方式实现浏览器下载"><a href="#读取指定位置文件压缩并通过response流的方式实现浏览器下载" class="headerlink" title="读取指定位置文件压缩并通过response流的方式实现浏览器下载"></a>读取指定位置文件压缩并通过response流的方式实现浏览器下载</h3><h3 id="读取InputStream压缩zip并写到指定位置"><a href="#读取InputStream压缩zip并写到指定位置" class="headerlink" title="读取InputStream压缩zip并写到指定位置"></a>读取InputStream压缩zip并写到指定位置</h3><h3 id="读取InputStream压缩zip并通过response流的方式实现浏览器下载"><a href="#读取InputStream压缩zip并通过response流的方式实现浏览器下载" class="headerlink" title="读取InputStream压缩zip并通过response流的方式实现浏览器下载"></a>读取InputStream压缩zip并通过response流的方式实现浏览器下载</h3><h2 id="Java-zip压缩（文件夹）"><a href="#Java-zip压缩（文件夹）" class="headerlink" title="Java zip压缩（文件夹）"></a>Java zip压缩（文件夹）</h2><h2 id="Java-zip解压缩"><a href="#Java-zip解压缩" class="headerlink" title="Java zip解压缩"></a>Java zip解压缩</h2>
       
       <!-- reward -->
       <!-- 
@@ -168,15 +257,13 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/22/java%E5%8E%8B%E7%BC%A9zip/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/09/08/redis%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zip/" rel="tag">zip</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%81/" rel="tag">流</a></li></ul>
-
 
     </footer>
 
@@ -186,19 +273,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/09/08/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/" class="article-nav-link">
+      <a href="/2020/09/09/mac-vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            hexo搭建github博客教程
+            mca-vscode快捷键
           
         </div>
       </a>
     
     
-      <a href="/2020/04/21/linux%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8%E8%A7%A3%E9%87%8A/" class="article-nav-link">
+      <a href="/2020/09/08/redis%E9%9B%86%E7%BE%A4%E6%8A%A5%E9%94%99/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">linux后台启动解释.md</div>
+        <div class="article-nav-title">redis集群报错</div>
       </a>
     
   </nav>
